@@ -1,12 +1,5 @@
 # Learn How to Deploy R Calculations on HTC
 
-TODO:
-* REPO_FILES_DOWNLOAD: "Download Zip" link for repo
-* REPO_LINK: GitHub URL
-* REPO_NAME: Shortname for repo
-
-## About
-
 This is a start-to-finish tutorial for how to deploy and run R calculations on CHTC's High Throughput Computing (HTC) system.
 The goal of this tutorial is to provide a step-by-step example of how to go from running R calculations on your computer using RStudio,
 to running *many* such calculations on a High Throughput Computing system.
@@ -39,7 +32,18 @@ It is recommended, though not required, that you complete the "Hello World" guid
 
 ### Materials
 
-To obtain a copy of the files used in this tutorial, you can download them from ***REPO_FILES_DOWNLOAD***. 
+To obtain a copy of the files used in this tutorial, you can
+
+* Clone the repository, with 
+  
+  ```
+  git clone https://github.com/CHTC/tutorial-rstudio-to-chtc
+  ```
+
+  or the equivalent for your device
+
+* Download the zip file of the materials: 
+  [download here](https://github.com/CHTC/tutorial-rstudio-to-chtc/archive/refs/heads/main.zip)
 
 We recommend that you create a new R project named "rstudio-to-chtc" and download/copy the files into that directory.
 
@@ -224,7 +228,7 @@ Doing so is optional, however, for participating in this tutorial.
 Once you are logged in, duplicate the tutorial materials to your directory on the HTC system with the following command:
 
 ```
-git clone REPO_LINK
+git clone https://github.com/CHTC/tutorial-rstudio-to-chtc
 ```
 
 Now run the command `ls` (lowercase "L" and lowercase "S") to **l**i**s**t the contents of your directory on the HTC system:
@@ -233,12 +237,12 @@ Now run the command `ls` (lowercase "L" and lowercase "S") to **l**i**s**t the c
 ls
 ```
 
-You should see a directory called `REPO_NAME`, corresponding to the GitHub repository that you just cloned. 
+You should see a directory called `tutorial-rstudio-to-chtc`, corresponding to the GitHub repository that you just cloned. 
 
-Next, run the command `cd` followed by the directory name (`REPO_NAME`) to **c**hange **d**irectory:
+Next, run the command `cd` followed by the directory name (`tutorial-rstudio-to-chtc`) to **c**hange **d**irectory:
 
 ```
-cd REPO_NAME
+cd tutorial-rstudio-to-chtc
 ```
 
 By running this command, you've changed your location on the server to be inside of the GitHub repository.
@@ -246,7 +250,7 @@ Your command prompt typically shows the name of the directory you are located in
 in this case, you should see
 
 ```
-[yourNetID@ap2002 REPO_NAME]$
+[yourNetID@ap2002 tutorial-rstudio-to-chtc]$
 ```
 
 Running the `ls` command here should show you the contents of the GitHub repository for this tutorial.
