@@ -488,15 +488,22 @@ Once the job is completed, you should see the following new files:
 `example.log`, `example.out`, `example.err`, `madison.png`, `milwaukee.png`, and `stevens_point.png`.
 (You may also see a file called `docker_stderror`, which you can ignore.)
 
-Run the following command to see the messages that would have been printed to the screen by the `example.R` script:
+The contents of `example.out` should have the "normal" output messages for the script.
+You can use the command
+
+```
+head example.out
+```
+
+to print the first 10 lines of the file, or use
 
 ```
 cat example.out
 ```
 
-This should look the same as the output you saw when you ran the `example.R` script in RStudio.
+to print all the lines in the file.
 
-Next, makke sure that there are no error messages by running
+Next, make sure that there are no error messages by running
 
 ```
 cat example.err
