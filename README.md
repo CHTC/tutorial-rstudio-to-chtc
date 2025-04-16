@@ -496,20 +496,17 @@ cat example.out
 
 This should look the same as the output you saw when you ran the `example.R` script in RStudio.
 
-Next, make sure that there are no error messages by running
+Next, makke sure that there are no error messages by running
 
 ```
 cat example.err
 ```
 
-If there are none, your command prompt will immediately return.
-You can also use the command
-
-```
-wc -c example.err
-```
-
-and if the file is empty, you'll see the message `0 example.err`.
+In this case, we see a bunch of messages that we would normally see in the console in RStudio,
+but none of these messages are breaking errors.
+That is because a lot of software programs will use the "error" message channel to report
+additional information that is not considered "output".
+But if something goes wrong with your job, there will likely be a proper error message in this file.
 
 ![Remote terminal, showing the files and contents after single job finished running]()
 
