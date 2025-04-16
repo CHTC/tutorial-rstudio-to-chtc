@@ -82,11 +82,11 @@ create_histogram <- function(
   end_date <- max(temps_df$DATE)
   n_years <- round(n_days / 365.25, digits = 1)
   
-  glue(
+  print(glue(
     'Plotting histograms of observations for {format(n_days, big.mark = ",")} days,
     spanning {n_years} years from {start_date} to {end_date},
     and saving to "{filename}".'
-  )
+  ))
   
   # Set histogram parameters
   if (use_celsius) {

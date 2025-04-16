@@ -25,7 +25,7 @@ for (station in station_list) {
   rm(station_df)
 
   # Print summary of dataframe
-  summary(temps_df)
+  print(summary(temps_df))
 
   # Add "SEASON" column to label the meteorological season each date occurred in
   temps_df <- temps_df %>% identify_seasons()
