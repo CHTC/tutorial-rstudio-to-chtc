@@ -255,7 +255,7 @@ in this case, you should see
 
 Running the `ls` command here should show you the contents of the GitHub repository for this tutorial.
 
-![Remote terminal, showing git clone command and navigating to git repo directory]()
+![Remote terminal, showing git clone command and navigating to git repo directory](./.images/terminal-git-clone.png)
 
 *For more information on how to use the command line, see our guide [Basic shell commands](https://chtc.cs.wisc.edu/uw-research-computing/basic-shell-commands).*
 
@@ -340,7 +340,7 @@ Keyboard shortcuts for other operations are listed at the bottom of the screen,
 where the `^` represents the `Ctrl` key
 and the `M-` represents the `Alt` key.
 
-![Nano, empty file](./.images/nano-example_sub-empty.png)
+![nano, empty file](./.images/nano-example_sub-empty.png)
 
 Copy and paste the following contents into the terminal.
 If you are having trouble pasting into the terminal, 
@@ -396,7 +396,7 @@ This tells HTCondor to use the information in the `example.sub` file to create t
 The output of this command will be the number of jobs in the submission as well as a unique ID.
 This ID (referred to as the batch or cluster ID) can be used to identify and select jobs that correspond to this submission.
 
-![Remote terminal, showing output of "condor_submit example.sub" command]()
+![Remote terminal, showing output of "condor_submit example.sub" command](./.images/terminal-condor-submit.png)
 
 ### Monitor the job
 
@@ -419,7 +419,7 @@ To exit the live view, use the `^C` shortcut (`Ctrl` key and the letter `C` key 
 > Note that completed jobs will not show up in `condor_q` output, 
 > and will only show up in `condor_watch_q` if the jobs were in the queue when the command was initially run.
 
-![Remote terminal, showing output of "condor_q", "condor_watch_q" commands for monitoring single job]()
+![Remote terminal, showing output of "condor_q", "condor_watch_q" commands for monitoring single job](./.images/terminal-condor_q.png)
 
 *For more information on monitoring jobs, see our guide [Learn About Your Jobs Using condor_q](https://chtc.cs.wisc.edu/uw-research-computing/condor_q).*
 
@@ -503,6 +503,8 @@ cat example.out
 
 to print all the lines in the file.
 
+![Remote terminal, showing the new files and the first 10 lines of the output file](./.images/terminal-head-out.png)
+
 Next, make sure that there are no error messages by running
 
 ```
@@ -515,7 +517,7 @@ That is because a lot of software programs will use the "error" message channel 
 additional information that is not considered "output".
 But if something goes wrong with your job, there will likely be a proper error message in this file.
 
-![Remote terminal, showing the files and contents after single job finished running]()
+![Remote terminal, showing the top part of the error file](./.images/terminal-cat-err.png)
 
 *If you want to view the `.png` image files that were created, you'll need to download them to your computer.*
 *For instructions on how to do so, see our guide [Transfer Files between CHTC and your Computer](https://chtc.cs.wisc.edu/uw-research-computing/transfer-files-computer).*
@@ -575,6 +577,8 @@ Here is the difference:
 This tells the script that `station_list` will be defined by the trailing arguments that are passed when the script is executed.
 
 Save and close the file.
+
+![nano, showing the changed definition of station_list in the htc-example.R file](./.images/nano-htc-example_R-write-out.png)
 
 #### Explanation
 
@@ -644,6 +648,8 @@ queue my_station from (
 
 Save and close the file.
 
+![nano, showing the contents of the new submit file](./.images/nano-htc-example_sub-write-out.png)
+
 #### Explanation
 
 Most of the changes to the submit file revolve around the idea of each job analyzing a unique station dataset.
@@ -699,12 +705,12 @@ Each job will be managed completely independently from each other.
 
 Use `condor_q` and `condor_watch_q` to monitor the progress of your jobs.
 
-![Remote terminal, showing output of "condor_submit", "condor_q", "condor_watch_q" commands for multiple jobs]()
+![Remote terminal, showing output of "condor_submit", "condor_q", "condor_watch_q" commands for multiple jobs](./.images/terminal-condor-submit-htc.png)
 
 Once completed, there should be a `.err`, `.out`, and `.png` file in the `htc-results` directory for each of the datasets.
 Take a look at the files to make sure that everything ran as expected.
 
-![Remote terminal, showing output of "condor_watch_q" command and directory contents after multiple jobs completed]()
+![Remote terminal, showing directory and file contents after multiple jobs completed](./.images/terminal-after-htc.png)
 
 ## Next Steps
 
