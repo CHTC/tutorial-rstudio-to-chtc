@@ -1,0 +1,23 @@
+log = htc-example.$(Cluster).log
+
+container_image = docker://rocker/tidyverse:4.4.2
+
+transfer_input_files = htc-example.R, my_functions.R, $(my_station).csv
+
+executable = htc-example.R
+arguments = $(my_station)
+output = htc-results/$(my_station).out
+error = htc-results/$(my_station).err
+
+transfer_output_files = $(my_station).png
+transfer_output_remaps = "$(my_station).png = htc-results/$(my_station).png"
+
+request_cpus = 1
+request_memory = 2GB
+request_disk = 5GB
+
+queue my_station from (
+   madison
+   milwaukee
+   stevens_point
+)
