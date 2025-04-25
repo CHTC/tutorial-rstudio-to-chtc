@@ -250,6 +250,7 @@ Your command prompt typically shows the name of the directory you are located in
 in this case, you should see
 
 ```
+[yourNetID@ap2002 ~]$ cd tutorial-rstudio-to-chtc
 [yourNetID@ap2002 tutorial-rstudio-to-chtc]$
 ```
 
@@ -337,8 +338,8 @@ nano example.sub
 Your terminal will open a blank file into which you can type the contents of a file.
 You move the cursor in the file using the arrow keys.
 Keyboard shortcuts for other operations are listed at the bottom of the screen, 
-where the `^` represents the `Ctrl` key
-and the `M-` represents the `Alt` key.
+where the `^` represents the `Ctrl` (or `Control` on Mac) key
+and the `M-` represents the `Alt` (or `Option` on Mac) key.
 
 ![nano, empty file](./.images/nano-example_sub-empty.png)
 
@@ -557,7 +558,7 @@ nano htc-example.R
 ```
 
 Use the arrow keys on your keyboard to move the cursor down to where `station_list` is defined.
-Replace the multi-line definition with the following single-line definition:
+Replace the multi-line definition with the following single-line definition (`Ctrl+K` in nano deletes whole lines):
 
 ```R
 station_list <- commandArgs(trailingOnly = TRUE)
@@ -576,13 +577,16 @@ Here is the difference:
 
 This tells the script that `station_list` will be defined by the trailing arguments that are passed when the script is executed.
 
-Save and close the file.
+Save (`Ctrl+O`) and close the file (`Ctrl+X`).
 
 ![nano, showing the changed definition of station_list in the htc-example.R file](./.images/nano-htc-example_R-write-out.png)
 
 #### Explanation
 
-With this change to the R script, we can replicate the behavior of the original `example.R` script with the following command (don't actually run this!):
+With this change to the R script, we can replicate the behavior of the original `example.R` script with the following command:
+
+> [!WARNING]
+> Do not actually run the next command! Only for example purposes.
 
 ```bash
 htc-example.R madison milwaukee stevens_point
@@ -590,6 +594,9 @@ htc-example.R madison milwaukee stevens_point
 
 This is particularly useful if we want to change the list of stations to analyze. 
 Assuming you have the corresponding `.csv` files, the following command would analyze a different list of stations:
+
+> [!WARNING]
+> Do not actually run the next command! Only for example purposes.
 
 ```bash
 htc-example.R new_york chicago los_angeles
