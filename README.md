@@ -468,6 +468,7 @@ So what is happening behind the scenes?
    If the output files are transferred successfully, the job is marked as "done". 
    HTCondor then removes the job from your queue and creates a record in its history.
 
+> [!NOTE]  
 > **What if something goes wrong?**
 >
 > If the problem is something that HTCondor knows how to handle,
