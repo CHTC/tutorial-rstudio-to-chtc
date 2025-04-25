@@ -78,6 +78,7 @@ In the RStudio toolbar,
    When you are done, it should look like the following:
 
    ![RStudio "rstudio-to-chtc" project window, with tutorial files](./.images/rstudio-project-with-tutorial-files-init.png)
+   You may need to press the refresh button to reload your `Files` panel
 
 ## Example Calculation Using RStudio
 
