@@ -159,6 +159,7 @@ The traditional way of handling the "software environment" can be rather complic
 For most new users, we recommend instead that they use something called a "container".
 For now, think of containers as a plug-and-play method for deploying software.
 
+> [!TIP]
 > Your R project may be structured differently or may be more extensive than the project in this tutorial.
 > For guidance on how to identify the necessary information for migrating your project to CHTC, 
 > see the [notes below](#preparing-to-transition-an-r-project-from-your-computer-to-chtc).
@@ -169,11 +170,12 @@ Before proceeding, we need to make sure that you can login to the HTC system.
 Access to CHTC systems is currently only via the command line (aka terminal) using the SSH protocol.
 
 First, open the "Terminal" application on your computer.
-
+> [!NOTE]  
 > Mac and Linux operating systems come with a unix "Terminal" application by default.
 > Windows 11 comes with a powershell "Terminal" application, but older Windows machines may need to install it manually: [Windows Terminal](https://apps.microsoft.com/detail/9N0DX20HK701?hl=en-us&gl=US&ocid=pdpshare).
 > If you are unable to install software on your machine, then you should still be able to use the "PowerShell" or "Cmd" applications instead.
 
+> [!Warning]
 > Technically, RStudio comes with a built-in "Terminal" that can be accessed via a tab in the bottom left "Console" pane.
 > While you can use that to login to CHTC, we do not recommend it, as it becomes too easy to run commands on the login server that you meant to run on your computer!
 
@@ -191,6 +193,7 @@ where `yourNetID` should be replaced with your actual NetID, and `hostname` shou
 For example, if your NetID is `bbadger` and your account is on hostname `ap2002.chtc.wisc.edu` (where most new user accounts are located), 
 the command would be `ssh bbadger@ap2002.chtc.wisc.edu`.
 
+> [!NOTE]
 > You will need to be on the university internet for the command to work!
 > That means you either need to be physically on campus, or else connected to the GlobalProtect VPN (WiscVPN).
 
@@ -214,8 +217,8 @@ but at the bottom of the screen your terminal prompt should look like
 ```
 [yourNetID@ap2002 ~]$ 
 ```
-
-*For more information on logging in to the system, see [Log in to CHTC](https://chtc.cs.wisc.edu/uw-research-computing/connecting).*
+> [!TIP]
+> For more information on logging in to the system, see [Log in to CHTC](https://chtc.cs.wisc.edu/uw-research-computing/connecting).
 
 ### Submitting a Test Job (Optional)
 
@@ -259,7 +262,8 @@ Running the `ls` command here should show you the contents of the GitHub reposit
 
 ![Remote terminal, showing git clone command and navigating to git repo directory](./.images/terminal-git-clone.png)
 
-*For more information on how to use the command line, see our guide [Basic shell commands](https://chtc.cs.wisc.edu/uw-research-computing/basic-shell-commands).*
+> [!TIP]
+>For more information on how to use the command line, see our guide [Basic shell commands](https://chtc.cs.wisc.edu/uw-research-computing/basic-shell-commands).
 
 ## Run Example Calculation as a Single Job
 
@@ -423,7 +427,8 @@ To exit the live view, use the `^C` shortcut (`Ctrl` key and the letter `C` key 
 
 ![Remote terminal, showing output of "condor_q", "condor_watch_q" commands for monitoring single job](./.images/terminal-condor_q.png)
 
-*For more information on monitoring jobs, see our guide [Learn About Your Jobs Using condor_q](https://chtc.cs.wisc.edu/uw-research-computing/condor_q).*
+> [!TIP]
+>For more information on monitoring jobs, see our guide [Learn About Your Jobs Using condor_q](https://chtc.cs.wisc.edu/uw-research-computing/condor_q).
 
 ### The job lifecycle
 
@@ -587,7 +592,7 @@ Save (`Ctrl+O`) and close the file (`Ctrl+X`).
 
 With this change to the R script, we can replicate the behavior of the original `example.R` script with the following command:
 
-> [!WARNING]
+> [!Caution]
 > Do not actually run the next command! Only for example purposes.
 
 ```bash
@@ -597,7 +602,7 @@ htc-example.R madison milwaukee stevens_point
 This is particularly useful if we want to change the list of stations to analyze. 
 Assuming you have the corresponding `.csv` files, the following command would analyze a different list of stations:
 
-> [!WARNING]
+> [!Caution]
 > Do not actually run the next command! Only for example purposes.
 
 ```bash
@@ -615,7 +620,8 @@ htc-example.R job_X_dataset_name
 
 where `job_X_dataset_name` will be unique for each job and correspond to one of the datasets we are analyzing.
 
-*For more information on using arguments, see our guide [Basic Scripting and Job Submission with Arguments](https://chtc.cs.wisc.edu/uw-research-computing/htc-basic-scripting).*
+> [!TIP]
+For more information on using arguments, see our guide [Basic Scripting and Job Submission with Arguments](https://chtc.cs.wisc.edu/uw-research-computing/htc-basic-scripting).
 
 ### Create the submit file
 
@@ -699,7 +705,8 @@ Each job will have a unique value that will be substituted wherever you see `$(m
 * `transfer_output_remaps`: This provides a key-value mapping for renaming the output files being transferred back.
   In this case, we are simply asking HTCondor to save the output `.png` file into the `htc-results` directory.
 
-*For more information about the setting up a submit file for multiple jobs, see our guide [Submitting Multiple Jobs Using HTCondor](https://chtc.cs.wisc.edu/uw-research-computing/multiple-jobs).*
+> [!TIP]
+For more information about the setting up a submit file for multiple jobs, see our guide [Submitting Multiple Jobs Using HTCondor](https://chtc.cs.wisc.edu/uw-research-computing/multiple-jobs).
 
 ### Submit multiple jobs
 
@@ -803,7 +810,8 @@ If so, you'll want to rewrite your program to use a "relative" path.
 
 You will likely need to test that your program still functions as expected.
 
-For more information about "absolute" and "relative" paths, see the note below ([About paths](#about-paths)).
+> [!TIP]
+>For more information about "absolute" and "relative" paths, see the note below ([About paths](#about-paths)).
 
 ### Find your version of R
 
