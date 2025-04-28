@@ -28,7 +28,8 @@ To participate in the hands-on portion, you'll need an active CHTC account.
 You can request such an account here: [go.wisc.edu/chtc-account](https://go.wisc.edu/chtc-account).
 To make it easier to copy and paste commands, we recommend that you have this tutorial's GitHub page open in your browser.
 
-It is recommended, though not required, that you complete the "Hello World" guide [Practice: Submit HTC Jobs using HTCondor](https://chtc.cs.wisc.edu/uw-research-computing/htcondor-job-submission) before starting this tutorial.
+> [!TIP]
+> It is recommended, though not required, that you complete the "Hello World" guide [Practice: Submit HTC Jobs using HTCondor](https://chtc.cs.wisc.edu/uw-research-computing/htcondor-job-submission) before starting this tutorial.
 
 ### Materials
 
