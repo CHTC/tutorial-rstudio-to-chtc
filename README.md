@@ -527,8 +527,9 @@ But if something goes wrong with your job, there will likely be a proper error m
 
 ![Remote terminal, showing the top part of the error file](./.images/terminal-cat-err.png)
 
-*If you want to view the `.png` image files that were created, you'll need to download them to your computer.*
-*For instructions on how to do so, see our guide [Transfer Files between CHTC and your Computer](https://chtc.cs.wisc.edu/uw-research-computing/transfer-files-computer).*
+> [!TIP]
+> If you want to view the `.png` image files that were created, you'll need to download them to your computer.
+> For instructions on how to do so, see our guide [Transfer Files between CHTC and your Computer](https://chtc.cs.wisc.edu/uw-research-computing/transfer-files-computer).
 
 ## Run Example Calculation as Multiple Jobs
 
