@@ -1,0 +1,17 @@
+container_image = 
+
+shell = 
+
+transfer_input_files = 
+# transfer_output_files = 
+# transfer_output_remaps = 
+
+log = logs/
+error = logs/
+output = logs/
+
+request_cpus = 1
+request_memory = 2GB
+request_disk = 5GB
+
+queue
