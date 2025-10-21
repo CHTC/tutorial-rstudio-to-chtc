@@ -1,141 +1,25 @@
 # Learn How to Deploy R Calculations on HTC
 
-This is a start-to-finish tutorial for how to deploy and run R calculations on CHTC's High Throughput Computing (HTC) system.
-The goal of this tutorial is to provide a step-by-step example of how to go from running R calculations on your computer using RStudio,
-to running *many* such calculations on a High Throughput Computing system.
+This is a mini tutorial for how to deploy and run R calculations on CHTC's High Throughput Computing (HTC) system.
 
 Using data from the [NOAA Global Historical Climatology Network](https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00861/html),
 this tutorial generates histograms showing the distribution of daily high and low temperatures across the four meteorological seasons.
 
-Jump to...
-
-- [Tutorial Setup](#tutorial-setup)
-- [Example Calculation Using RStudio](#example-calculation-using-rstudio)
-- [Transitioning from RStudio](#transitioning-from-rstudio)
-- [Logging into CHTC](#logging-into-chtc)
-- [Run Example Calculation as a Single Job](#run-example-calculation-as-a-single-job)
-- [Run Example Calculation as Multiple Jobs](#run-example-calculation-as-multiple-jobs)
-- [Next Steps](#next-steps)
-- [Getting Help](#getting-help)
-- [Appendix](#appendix-preparing-to-transition-an-r-project-from-your-computer-to-chtc)
-
-## Tutorial Setup
-
-### Assumptions
-
-This tutorial assumes that you have been using R via the RStudio program installed on your computer.
-To participate in the hands-on portion, you'll need an active CHTC account.
-You can request such an account here: [go.wisc.edu/chtc-account](https://go.wisc.edu/chtc-account).
-To make it easier to copy and paste commands, we recommend that you have this tutorial's GitHub page open in your browser.
-
-> [!TIP]
-> It is recommended, though not required, that you complete the "Hello World" guide [Practice: Submit HTC Jobs using HTCondor](https://chtc.cs.wisc.edu/uw-research-computing/htcondor-job-submission) before starting this tutorial.
-
-### Materials
-
-To obtain a copy of the files used in this tutorial, you can
-
-* Clone the repository, with 
-  
-  ```
-  git clone https://github.com/CHTC/tutorial-rstudio-to-chtc
-  ```
-
-  or the equivalent for your device
-
-* Download the zip file of the materials: 
-  [download here](https://github.com/CHTC/tutorial-rstudio-to-chtc/archive/refs/heads/main.zip)
-
-We recommend that you create a new R project named "rstudio-to-chtc" and download/copy the files into that directory.
-
-In the RStudio toolbar,
-
-1. Click on "File", then "New Project"
-   
-   ![RStudio toolbar "File" menu](./.images/rstudio-toolbar-file.png)
-
-2. Click on "New Directory"
-   
-   ![RStudio new project popup window](./.images/rstudio-new-project.png)
-
-3. Click on the "New project" type
-
-   ![RStudio create new project, select project type](./.images/rstudio-new-project-project-type.png)
-
-   After you click the "Create Project" button, RStudio will load the project environment.
-   In the "Files" pane, you'll see the file `rstudio-to-chtc.Rproj` along with the files you downloaded.
-
-4. Enter `rstudio-to-chtc` as the "Directory name". 
-   Choose a parent directory that you feel is appropriate.
-   Whether to check the box for "Use renv with this project" is up to you.
-
-   ![RStudio create new project, provide directory name and location](./.images/rstudio-new-project-project-name.png)
-
-5. Click the "Create Project" button. This will create an empty project as requested.
-
-   ![RStudio "rstudio-to-chtc" project window, empty](./.images/rstudio-chtc-project-empty.png)
-
-5. Download/copy tutorial files into the empty project.
-   When you are done, it should look like the following:
-
-   ![RStudio "rstudio-to-chtc" project window, with tutorial files](./.images/rstudio-project-with-tutorial-files-init.png)
-   You may need to press the refresh button to reload your `Files` panel
-
-## Example Calculation Using RStudio
+## Example Calculation Using RStudio (Demo)
 
 This tutorial provides some example scripts for analyzing data from the [NOAA Global Historical Climatology Network](https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00861/html).
 
-As you read and follow the instructions for running the example calculation, keep note of the 
-things that you needed to set up in order to make the calculation work.
+## Transitioning from RStudio to CHTC
 
-Later on, you will need to think about the same things in order to run the calculation on CHTC.
+What is the list of data we want to iterate through? 
 
-### Installing required packages in RStudio
+If we run this script locally, there's a few things that we want to change or note 
+in order to run it in CHTC: 
 
-The example calculation requires that the R package "tidyverse" is installed.
+* Remove for-loop
+* Add arguments
+* Note what software/dependencies we're using
 
-To install the necessary package, run the following command in the R Console:
-
-```
-install.packages("tidyverse")
-```
-
-You will see a bunch of messages printed to the console screen about R installing the package you specified.
-If you have not installed the `tidyverse` package before, it may take a few minutes to install.
-Once the command has completed running, you'll see the console prompt symbol again (`>`),
-meaning you are ready to run another command.
-
-### Running the example script
-
-In the "Files" pane, double-click on `example.R` to open the script in RStudio. 
-
-This script contains a for-loop that generates a histogram for each of the following stations:
-
-| Filename | Station ID | Station Location |
-| --- | --- | --- |
-| `madison.csv` | `USW00014837` | WI MADISON DANE CO RGNL AP |
-| `milwaukee.csv` | `USW00014839` | WI MILWAUKEE MITCHELL AP |
-| `stevens_point.csv` | `USW00004895` | WI STEVENS POINT MUNI AP |
-
-Each iteration of the for-loop does the following:
-* Load historic temperature data for a weather station using its ID and the corresponding `.csv` file.
-* Extract the temperature data and label them by the meteorological season the measurement was recorded in.
-* Create a histogram of comparing the high and low temperatures across the four meteorological seasons.
-
-Open the `example.R` script in the file pane.
-Take a few moments to inspect the script to try to understand what it is doing.
-When you are ready, execute the script by clicking the "Source" button in the top right of the file pane.
-
-![RStudio "rstudio-to-chtc" project window, showing "example.R" script in file pane](./.images/rstudio-project-showing-example_R.png)
-
-You should see some output messages about the datasets being analyzed.
-Once the script has finished running,
-there should be three new files ending with `.png` in the file pane,
-which are the histograms corresponding to the stations listed in the table above.
-
-![RStudio "rstudio-to-chtc" project window, after sourcing "example.R" script](./.images/rstudio-project-after-sourcing-example_R.png)
-
-## Transitioning from RStudio
 
 Now that you've successfully run the example calculation using RStudio on your computer,
 let's consider how to migrate the calculation to work on the High Throughput Computing (HTC) system.
@@ -221,13 +105,6 @@ but at the bottom of the screen your terminal prompt should look like
 > [!TIP]
 > For more information on logging in to the system, see [Log in to CHTC](https://chtc.cs.wisc.edu/uw-research-computing/connecting).
 
-### Submitting a Test Job (Optional)
-
-We recommend that all new users work through the "hello world" guide for submitting jobs using HTCondor on the High Throughput Computing cluster:
-[Practice: Submit HTC Jobs using HTCondor](https://chtc.cs.wisc.edu/uw-research-computing/htcondor-job-submission).
-
-Doing so is optional, however, for participating in this tutorial.
-
 ## Copying Files to CHTC
 
 Once you are logged in, duplicate the tutorial materials to your directory on the HTC system with the following command:
@@ -266,30 +143,28 @@ Running the `ls` command here should show you the contents of the GitHub reposit
 > [!TIP]
 >For more information on how to use the command line, see our guide [Basic shell commands](https://chtc.cs.wisc.edu/uw-research-computing/basic-shell-commands).
 
-## Run Example Calculation as a Single Job
+## Run Example Calculation as a Test Job
 
-We'll first replicate the execution of the example calculation on the HTC system the same way we ran it in RStudio.
-That is, we are not going to change anything about the contents of the `example.R` script.
-All that we need to do is create a "submit file" that will describe to HTCondor how to run calculation.
+All that we need to do is create a "submit file" that will describe to HTCondor how to run our calculation on one of the input files. 
 
 ### About the submit file
 
 The submit file describes to HTCondor the calculation (or "job") that we want to submit.
 Just like how the `example.R` file describes to R the commands that you want to execute within the R language, 
-the submit file describes to HTCondor how it should execute the `example.R` file on a computer within the HTC system.
+the submit file describes to HTCondor how it should execute the `example.R` file on a computer within the HTC system. 
 
 To start with, the submit file will need to detail the items discussed in [Transitioning from RStudio](#transitioning-from-rstudio):
 
-* The "executable" script, containing the commands you want to execute.
+* The shell line contains the commands you want to execute (as if running them locally). 
 
   ```
-  executable = example.R
+  shell = Rscript example.R $(station)
   ```
 
-* The "input files" needed in order for the "executable" to function.
+* The "input files" (including scripts!) needed in for the command to run.
 
   ```
-  transfer_input_files = example.R, my_functions.R, madison.csv, milwaukee.csv, stevens_point.csv
+  transfer_input_files = example.R, my_functions.R, $(station)
   ```
 
 * The "software environment" with the programs that are used to run, or are required by, the "executable" script.
@@ -303,14 +178,14 @@ Since you'll be asking HTCondor to execute the calculation on a remote machine, 
 * A job management "log" for keeping track of HTCondor's actions. 
 
   ```
-  log = example.log
+  log = example.$(station).log
   ```
 
 * Standard "output" and "error" files to record the messages that would normally be printed to your screen.
 
   ```
-  output = example.out
-  error = example.err
+  output = example.$(station).out
+  error = example.$(station).err
   ```
 
 * A set of resource "requests" for the amount of computing power that should be used.
@@ -321,12 +196,13 @@ Since you'll be asking HTCondor to execute the calculation on a remote machine, 
   request_disk = 5GB
   ```
 
-Finally, since HTCondor is designed for high throughput computing, you can define the number of calculations (or jobs) that you want it to run on your behalf.
+Finally, since HTCondor is designed for high throughput computing, you can define the number of calculations (or jobs) that you want it to run on your behalf. This is ALSO 
+where we will define the `$(datafile)` variable shown above. 
 
 * The "queue" statement 
 
   ```
-  queue 1
+  queue station from ( madison.csv )
   ```
 
 To create a submit file for our example, we just need to combine all of these lines into one file.
@@ -354,25 +230,24 @@ If you are having trouble pasting into the terminal,
 take a few minutes to type the contents in manually. 
 
 ```
-log = example.log
-
 container_image = docker://rocker/tidyverse:4.4.2
 
-transfer_input_files = example.R, my_functions.R, madison.csv, milwaukee.csv, stevens_point.csv
+shell = Rscript example.R $(station)
 
-executable = example.R
+transfer_input_files = example.R, my_functions.R, input/$(station)
+# transfer_output_files = 
+# transfer_output_remaps = 
 
-output = example.out
-error = example.err
+log = logs/example.$(station).log
+output = logs/example.$(station).out
+error = logs/example.$(station).err
 
 request_cpus = 1
 request_memory = 2GB
 request_disk = 5GB
 
-queue 1
+queue station from ( madison.csv )
 ```
-
-![nano, with example.sub contents](./.images/nano-example_sub-contents.png)
 
 To tell `nano` to save the contents of the file, use the `^O` shortcut (`Ctrl` key and the letter `O` key together).
 You'll be asked to confim the file name - make sure that it is `example.sub` before hitting the `Enter` key to confirm.
@@ -492,22 +367,23 @@ Once the job you submitted is marked as done in the `condor_watch_q` output,
 or the job no longer appears in the output of `condor_q` or `condor_watch_q`, 
 it has completed.
 
-Run the `ls` command to list the files in your directory.
+Run the `ls -R` command to list the files in your directory.
 Once the job is completed, you should see the following new files: 
-`example.log`, `example.out`, `example.err`, `madison.png`, `milwaukee.png`, and `stevens_point.png`.
+`example.log`, `example.out`, `example.err`, in the `logs/` directory, and `madison.png` in the `results` directory. 
+
 (You may also see a file called `docker_stderror`, which you can ignore.)
 
 The contents of `example.out` should have the "normal" output messages for the script.
 You can use the command
 
 ```
-head example.out
+head logs/example.madison.csv.out
 ```
 
 to print the first 10 lines of the file, or use
 
 ```
-cat example.out
+cat logs/example.madison.csv.out
 ```
 
 to print all the lines in the file.
@@ -517,7 +393,7 @@ to print all the lines in the file.
 Next, make sure that there are no error messages by running
 
 ```
-cat example.err
+cat logs/example.madison.csv.err
 ```
 
 In this case, we see a bunch of messages that we would normally see in the console in RStudio,
@@ -534,9 +410,8 @@ But if something goes wrong with your job, there will likely be a proper error m
 
 ## Run Example Calculation as Multiple Jobs
 
-In the previous section, you submitted a single job to run the `example.R` script as-is,
-which used a `for` loop to analyze the three datasets.
-In this section, we will make some changes so that each dataset is analyzed in a separate job.
+This last step is the easiest! Now we want to run three jobs, one for each of our 
+data files. 
 
 To understand why you might want to do this, consider a more realistic example:
 instead of 3 datasets that only take seconds to analyze, 
@@ -549,163 +424,19 @@ the time to completion would only be 10 hours!!
 (In practice, the time to completion would probably be closer to a week or two, 
 but that is still *much* faster than the single for-loop.)
 
-### Modify the executable
+### Modify the submit file
 
-We need to change the R script so that the `station_list` definition is not hard-coded.
-That is, we want to be able to easily define a different list to use without having to edit the contents of the script. 
+All we need to change is the final queue statement in `example.sub`
 
-Start by making a copy of the `example.R` script, called `htc-example.R`:
-
+Instead of 
 ```
-cp example.R htc-example.R
+queue station from ( madison.csv )
 ```
 
-Open the `htc-example.R` file using nano:
-
+We will use: 
 ```
-nano htc-example.R
+queue station from station_list.txt
 ```
-
-Use the arrow keys on your keyboard to move the cursor down to where `station_list` is defined.
-Replace the multi-line definition with the following single-line definition (`Ctrl+K` in nano deletes whole lines):
-
-```R
-station_list <- commandArgs(trailingOnly = TRUE)
-```
-
-Here is the difference:
-
-```diff
-- station_list <- c(
--   "madison", # WI MADISON DANE CO RGNL AP 
--   "milwaukee", # WI MILWAUKEE MITCHELL AP
--   "stevens_point", # WI STEVENS POINT MUNI AP
-- )
-+ station_list <- commandArgs(trailingOnly = TRUE)
-```
-
-This tells the script that `station_list` will be defined by the trailing arguments that are passed when the script is executed.
-
-Save (`Ctrl+O`) and close the file (`Ctrl+X`).
-
-![nano, showing the changed definition of station_list in the htc-example.R file](./.images/nano-htc-example_R-write-out.png)
-
-#### Explanation
-
-With this change to the R script, we can replicate the behavior of the original `example.R` script with the following command:
-
-> [!Caution]
-> Do not actually run the next command! Only for example purposes.
-
-```bash
-htc-example.R madison milwaukee stevens_point
-```
-
-This is particularly useful if we want to change the list of stations to analyze. 
-Assuming you have the corresponding `.csv` files, the following command would analyze a different list of stations:
-
-> [!Caution]
-> Do not actually run the next command! Only for example purposes.
-
-```bash
-htc-example.R new_york chicago los_angeles
-```
-
-If you wanted to make the same change for executing the `example.R` script,
-you would need to manually edit the script to change the station list.
-
-We'll be using this functionality in combination with the submit file so that each job executes a different command:
-
-```bash
-htc-example.R job_X_dataset_name
-```
-
-where `job_X_dataset_name` will be unique for each job and correspond to one of the datasets we are analyzing.
-
-> [!TIP]
-For more information on using arguments, see our guide [Basic Scripting and Job Submission with Arguments](https://chtc.cs.wisc.edu/uw-research-computing/htc-basic-scripting).
-
-### Create the submit file
-
-There are a handful of changes that need to be made to the submit file for the multi-job setup.
-
-Open a new file called `htc-example.sub` using `nano`:
-
-```bash
-nano htc-example.sub
-```
-
-Then paste in the following contents:
-
-```
-log = htc-example.$(Cluster).log
-
-container_image = docker://rocker/tidyverse:4.4.2
-
-transfer_input_files = htc-example.R, my_functions.R, $(my_station).csv
-
-executable = htc-example.R
-arguments = $(my_station)
-output = htc-results/$(my_station).out
-error = htc-results/$(my_station).err
-
-transfer_output_files = $(my_station).png
-transfer_output_remaps = "$(my_station).png = htc-results/$(my_station).png"
-
-request_cpus = 1
-request_memory = 2GB
-request_disk = 5GB
-
-queue my_station from (
-   madison
-   milwaukee
-   stevens_point
-)
-```
-
-Save and close the file.
-
-![nano, showing the contents of the new submit file](./.images/nano-htc-example_sub-write-out.png)
-
-#### Explanation
-
-Most of the changes to the submit file revolve around the idea of each job analyzing a unique station dataset.
-Which dataset is being analyzed for each job is communicated using the `my_station` variable.
-Each job will have a unique value that will be substituted wherever you see `$(my_station)`.
-
-**Changed**
-
-* `log`: The value looks similar to before: 
-  starts with the name of the submit file (`htc-example`)
-  and ends with `.log`.
-  The main difference is the insertion of `$(Cluster)` in the middle of the name.
-  When the submit file is submitted, `$(Cluster)` will be automatically replaced with the submission ID.
-  This naming convention ensures that there is always one unique log file per submission.
-
-* `transfer_input_files`: Changed `example.R` to the modified `htc-example.R`.
-  In place of listing all three dataset `.csv` files, there is a single `$(my_station).csv`. 
-  Here, the value of `$(my_station)` will be substituted with the name that is unique to each job.
-  The values that `$(my_station)` can take are listed at the end of the file.
-
-* `executable`: Name updated to `htc-example.R`.
-
-* `output` and `error`: These files will now be saved into the `htc-results` directory.
-  To ensure that each job has its own unique pair of files, `$(my_station)` is included in the filename.
-  Otherwise, each job will overwrite the files generated by the previous job!
-
-* `queue`: Here, we tell HTCondor to define the `my_station` variable.
-  Each value in the list will correspond to a single job, so in total there will be three jobs submitted.
-
-**New**
-
-* `arguments`: When HTCondor goes to run the `executable` script, it will append the value of `arguments` as trailing arguments to be read in by the script.
-  Here, `$(my_station)` will be substituted with the name that is unique to each job.
-
-* `transfer_output_files`: This tells HTCondor to only transfer back the listed files at the end of the job.
-  We again use `$(my_station)` to provide the unique name that is used for each job, combined with the `.png` file extension.
-
-* `transfer_output_remaps`: This provides a key-value mapping for renaming the output files being transferred back.
-  In this case, we are simply asking HTCondor to save the output `.png` file into the `htc-results` directory.
 
 > [!TIP]
 For more information about the setting up a submit file for multiple jobs, see our guide [Submitting Multiple Jobs Using HTCondor](https://chtc.cs.wisc.edu/uw-research-computing/multiple-jobs).
@@ -715,7 +446,7 @@ For more information about the setting up a submit file for multiple jobs, see o
 You'll use a similar command as before to submit the jobs to HTCondor:
 
 ```
-condor_submit htc-example.sub
+condor_submit example.sub
 ```
 
 You'll see a message that 3 jobs have been submitted, as well as the unique ID for the submission.

@@ -9,10 +9,11 @@ library(tidyverse)
 #   - create_histogram
 source('my_functions.R')
 
-station_list <- commandArgs()
+station_list <- commandArgs(trailingOnly = TRUE)
+station <- station_list[[1]]
 
 # Read data from file
-station_data_filename <- glue('{station}.csv')
+station_data_filename <- glue('input/{station}.csv')
 station_df <- read_csv(station_data_filename, col_names=TRUE)
 
 # Extract Min, Max Temperatures (in Fahrenheit); remove original dataframe from memory
