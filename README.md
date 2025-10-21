@@ -16,10 +16,11 @@ What is the list of data we want to iterate through?
 If we run this script locally, there's a few things that we want to change or note 
 in order to run it in CHTC: 
 
-* Remove for-loop
+* Remove the for-loop
 * Add arguments
 * Note what software/dependencies we're using
 
+## Find Dependencies
 
 Now that you've successfully run the example calculation using RStudio on your computer,
 let's consider how to migrate the calculation to work on the High Throughput Computing (HTC) system.
@@ -32,11 +33,9 @@ To execute the example calculation, you needed
 
 To run the example calculation on the HTC system, you will need the same set of items:
 
-* The "executable": script containing the commands you want to execute.
-* The "input files": additional files needed in order for the "executable" to function.
-* The "software environment": programs that are used to run, or are required by, the "executable" script.
+* The "input files": additional files needed in order for the shell command to function.
+* The "software environment": programs that are used to run, or are required by, the shell command. 
 
-To use the "executable" and "input files" on the system, you'll need to first transfer said files from your computer to the HTC system.
 For this tutorial, we'll clone the git repository to the system.
 But you can also upload files directly from your computer, as described in our guide [Transfer Files between CHTC and your Computer](https://chtc.cs.wisc.edu/uw-research-computing/transfer-files-computer).
 
@@ -164,7 +163,7 @@ To start with, the submit file will need to detail the items discussed in [Trans
 * The "input files" (including scripts!) needed in for the command to run.
 
   ```
-  transfer_input_files = example.R, my_functions.R, $(station)
+  transfer_input_files = example.R, my_functions.R, input/$(station).csv
   ```
 
 * The "software environment" with the programs that are used to run, or are required by, the "executable" script.
@@ -202,7 +201,7 @@ where we will define the `$(datafile)` variable shown above.
 * The "queue" statement 
 
   ```
-  queue station from ( madison.csv )
+  queue station from ( madison )
   ```
 
 To create a submit file for our example, we just need to combine all of these lines into one file.
@@ -236,7 +235,7 @@ shell = Rscript example.R $(station)
 
 transfer_input_files = example.R, my_functions.R, input/$(station)
 # transfer_output_files = 
-# transfer_output_remaps = 
+transfer_output_remaps = "$(station).png=results/$(station).png"
 
 log = logs/example.$(station).log
 output = logs/example.$(station).out
@@ -373,17 +372,17 @@ Once the job is completed, you should see the following new files:
 
 (You may also see a file called `docker_stderror`, which you can ignore.)
 
-The contents of `example.out` should have the "normal" output messages for the script.
+The contents of `example.madison.out` should have the "normal" output messages for the script.
 You can use the command
 
 ```
-head logs/example.madison.csv.out
+head logs/example.madison.out
 ```
 
 to print the first 10 lines of the file, or use
 
 ```
-cat logs/example.madison.csv.out
+cat logs/example.madison.out
 ```
 
 to print all the lines in the file.
@@ -393,7 +392,7 @@ to print all the lines in the file.
 Next, make sure that there are no error messages by running
 
 ```
-cat logs/example.madison.csv.err
+cat logs/example.madison.err
 ```
 
 In this case, we see a bunch of messages that we would normally see in the console in RStudio,
