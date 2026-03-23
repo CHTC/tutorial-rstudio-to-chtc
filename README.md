@@ -892,6 +892,7 @@ To start, make a list of the packages that you load in your R scripts, which is 
 Then, look in the "Packages" tab to identify the corresponding versions of the packages. 
 Usually the package names alone is enough, but sometimes the versions of the packages can matter as well ([About versions](#about-versions)). 
 
+> [!TIP]
 > If you'd rather not do this manually, you can install and use the package `renv` to automatically detect the packages you are using.
 > It can also create files to replicate the environment automatically when building a container.
 > For more information, see the `renv` recipe in the Recipes repository: [https://github.com/CHTC/recipes/tree/main/software/R/renv](https://github.com/CHTC/recipes/tree/main/software/R/renv).
