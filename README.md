@@ -23,17 +23,18 @@ Jump to...
 
 ### Assumptions
 
-This tutorial assumes that you have been using R via the RStudio program installed on your computer.
-To participate in the hands-on portion, you'll need an active CHTC account.
-You can request such an account here: [go.wisc.edu/chtc-account](https://go.wisc.edu/chtc-account).
-To make it easier to copy and paste commands, we recommend that you have this tutorial's GitHub page open in your browser.
+* This tutorial assumes that you have been using R via the RStudio program installed on your computer.
+* To participate in the hands-on portion, you'll need an active CHTC account.
+  You can request such an account here: [go.wisc.edu/chtc-account](https://go.wisc.edu/chtc-account).
+* To make it easier to copy and paste commands, we recommend that you have this tutorial's GitHub page open in your browser.
 
 > [!TIP]
 > It is recommended, though not required, that you complete the "Hello World" guide [Practice: Submit HTC Jobs using HTCondor](https://chtc.cs.wisc.edu/uw-research-computing/htcondor-job-submission) before starting this tutorial.
 
 ### Materials
 
-To obtain a copy of the files used in this tutorial, you can
+To obtain a copy of the files used in this tutorial, you can do one of the following.
+You may first want to setup your RStudio Project, though, as described in the next section.
 
 * Clone the repository, with 
   
@@ -45,6 +46,24 @@ To obtain a copy of the files used in this tutorial, you can
 
 * Download the zip file of the materials: 
   [download here](https://github.com/CHTC/tutorial-rstudio-to-chtc/archive/refs/heads/main.zip)
+
+### RStudio orientation
+
+RStudio is organized into four main "panes", as shown in this image:
+
+![RStudio general view with colored boxes highlighting the "panes"](./.images/rstudio-labeled-panes.png)
+
+* **File Editor** (top left) - pane for editing files
+* **Console** (bottom left) - pane for directly running R commands
+* **Advanced Insights** (top right) - pane for exploring information about your current R session
+* **View Explorer** (bottom right) - pane for listing files, packages, showing plots, and other things
+
+> [!TIP]
+> If there are no files open, the Console pane may take up the entire left side, since the File Editor pane has nothing to show.
+
+At the top of everything is the menu bar, which is organized like many other programs you interact with on the computer.
+
+### RStudio setup
 
 We recommend that you create a new R project named "rstudio-to-chtc" and download/copy the files into that directory.
 
@@ -63,13 +82,17 @@ In the RStudio toolbar,
    ![RStudio create new project, select project type](./.images/rstudio-new-project-project-type.png)
 
    After you click the "Create Project" button, RStudio will load the project environment.
-   In the "Files" pane, you'll see the file `rstudio-to-chtc.Rproj` along with the files you downloaded.
+   In the "Files" tab of the View Explorer pane, you'll see the file `rstudio-to-chtc.Rproj` along with the files you downloaded.
 
 4. Enter `rstudio-to-chtc` as the "Directory name". 
    Choose a parent directory that you feel is appropriate.
    Whether to check the box for "Use renv with this project" is up to you.
 
    ![RStudio create new project, provide directory name and location](./.images/rstudio-new-project-project-name.png)
+
+> [!TIP]
+> In general, when you create a new project in RStudio, it's a good idea to enable `renv` for the project.
+> But if you are using an existing project without `renv` enabled, then this tutorial as written should still be useful.
 
 5. Click the "Create Project" button. This will create an empty project as requested.
 
@@ -79,7 +102,7 @@ In the RStudio toolbar,
    When you are done, it should look like the following:
 
    ![RStudio "rstudio-to-chtc" project window, with tutorial files](./.images/rstudio-project-with-tutorial-files-init.png)
-   You may need to press the refresh button to reload your `Files` panel
+   You may need to press the refresh button to reload your "Files" tab in the View Explorer pane.
 
 ## Example Calculation Using RStudio
 
@@ -107,7 +130,11 @@ meaning you are ready to run another command.
 
 ### Running the example script
 
-In the "Files" pane, double-click on `example.R` to open the script in RStudio. 
+In the "Files" tab of the View Explorer pane, click on `example.R` to open the script in the File Editor pane. 
+
+Take a few moments to inspect the script to try to understand what it is doing.
+
+![RStudio "rstudio-to-chtc" project window, showing "example.R" script in File Editor pane](./.images/rstudio-project-showing-example_R.png)
 
 This script contains a for-loop that generates a histogram for each of the following stations:
 
@@ -122,15 +149,11 @@ Each iteration of the for-loop does the following:
 * Extract the temperature data and label them by the meteorological season the measurement was recorded in.
 * Create a histogram of comparing the high and low temperatures across the four meteorological seasons.
 
-Open the `example.R` script in the file pane.
-Take a few moments to inspect the script to try to understand what it is doing.
-When you are ready, execute the script by clicking the "Source" button in the top right of the file pane.
-
-![RStudio "rstudio-to-chtc" project window, showing "example.R" script in file pane](./.images/rstudio-project-showing-example_R.png)
+**When you are ready**, execute the script by clicking the "Source" button in the top right of the File Editor pane.
 
 You should see some output messages about the datasets being analyzed.
 Once the script has finished running,
-there should be three new files ending with `.png` in the file pane,
+there should be three new files ending with `.png` in the "File" tab of the View Explorer pane,
 which are the histograms corresponding to the stations listed in the table above.
 
 ![RStudio "rstudio-to-chtc" project window, after sourcing "example.R" script](./.images/rstudio-project-after-sourcing-example_R.png)
@@ -171,13 +194,14 @@ Before proceeding, we need to make sure that you can login to the HTC system.
 Access to CHTC systems is currently only via the command line (aka terminal) using the SSH protocol.
 
 First, open the "Terminal" application on your computer.
+
 > [!NOTE]  
 > Mac and Linux operating systems come with a unix "Terminal" application by default.
 > Windows 11 comes with a powershell "Terminal" application, but older Windows machines may need to install it manually: [Windows Terminal](https://apps.microsoft.com/detail/9N0DX20HK701?hl=en-us&gl=US&ocid=pdpshare).
 > If you are unable to install software on your machine, then you should still be able to use the "PowerShell" or "Cmd" applications instead.
 
 > [!Warning]
-> Technically, RStudio comes with a built-in "Terminal" that can be accessed via a tab in the bottom left "Console" pane.
+> Technically, RStudio comes with a built-in "Terminal" that can be accessed via a tab in the Console pane.
 > While you can use that to login to CHTC, we do not recommend it, as it becomes too easy to run commands on the login server that you meant to run on your computer!
 
 You should see something like this (colors, font, and size will likely differ):
@@ -218,6 +242,7 @@ but at the bottom of the screen your terminal prompt should look like
 ```
 [yourNetID@ap2002 ~]$ 
 ```
+
 > [!TIP]
 > For more information on logging in to the system, see [Log in to CHTC](https://chtc.cs.wisc.edu/uw-research-computing/connecting).
 
@@ -264,7 +289,7 @@ Running the `ls` command here should show you the contents of the GitHub reposit
 ![Remote terminal, showing git clone command and navigating to git repo directory](./.images/terminal-git-clone.png)
 
 > [!TIP]
->For more information on how to use the command line, see our guide [Basic shell commands](https://chtc.cs.wisc.edu/uw-research-computing/basic-shell-commands).
+> For more information on how to use the command line, see our guide [Basic shell commands](https://chtc.cs.wisc.edu/uw-research-computing/basic-shell-commands).
 
 ## Run Example Calculation as a Single Job
 
@@ -423,13 +448,14 @@ This will give a live update of the status of your job(s) in the queue,
 with progress bars and with colors to indicate the different job states.
 To exit the live view, use the `^C` shortcut (`Ctrl` key and the letter `C` key together).
 
-> Note that completed jobs will not show up in `condor_q` output, 
+> [!NOTE]
+> Completed jobs will not show up in `condor_q` output, 
 > and will only show up in `condor_watch_q` if the jobs were in the queue when the command was initially run.
 
 ![Remote terminal, showing output of "condor_q", "condor_watch_q" commands for monitoring single job](./.images/terminal-condor_q.png)
 
 > [!TIP]
->For more information on monitoring jobs, see our guide [Learn About Your Jobs Using condor_q](https://chtc.cs.wisc.edu/uw-research-computing/condor_q).
+> For more information on monitoring jobs, see our guide [Learn About Your Jobs Using condor_q](https://chtc.cs.wisc.edu/uw-research-computing/condor_q).
 
 ### The job lifecycle
 
@@ -623,7 +649,7 @@ htc-example.R job_X_dataset_name
 where `job_X_dataset_name` will be unique for each job and correspond to one of the datasets we are analyzing.
 
 > [!TIP]
-For more information on using arguments, see our guide [Basic Scripting and Job Submission with Arguments](https://chtc.cs.wisc.edu/uw-research-computing/htc-basic-scripting).
+> For more information on using arguments, see our guide [Basic Scripting and Job Submission with Arguments](https://chtc.cs.wisc.edu/uw-research-computing/htc-basic-scripting).
 
 ### Create the submit file
 
@@ -708,7 +734,7 @@ Each job will have a unique value that will be substituted wherever you see `$(m
   In this case, we are simply asking HTCondor to save the output `.png` file into the `htc-results` directory.
 
 > [!TIP]
-For more information about the setting up a submit file for multiple jobs, see our guide [Submitting Multiple Jobs Using HTCondor](https://chtc.cs.wisc.edu/uw-research-computing/multiple-jobs).
+> For more information about the setting up a submit file for multiple jobs, see our guide [Submitting Multiple Jobs Using HTCondor](https://chtc.cs.wisc.edu/uw-research-computing/multiple-jobs).
 
 ### Submit multiple jobs
 
@@ -782,7 +808,7 @@ This information, and more, is provided in our [Get Help](https://chtc.cs.wisc.e
 
 Identify the R scripts that you use to run your calculation. 
 Typically you'll have one main R script that is the entry point to your program, and for simple programs this will be the only script.
-You can use the "Files" pane to navigate the files in your R project. 
+You can use the "Files" tab of the View Explorer pane to navigate the files in your R project. 
 
 In this tutorial, main script was `example.R`. 
 But we also need the script `my_functions.R`, since it is loaded by `example.R`.
@@ -813,7 +839,7 @@ If so, you'll want to rewrite your program to use a "relative" path.
 You will likely need to test that your program still functions as expected.
 
 > [!TIP]
->For more information about "absolute" and "relative" paths, see the note below ([About paths](#about-paths)).
+> For more information about "absolute" and "relative" paths, see the note below ([About paths](#about-paths)).
 
 ### Find your version of R
 
@@ -833,10 +859,10 @@ When you open the console, the very first line contains the version of R, which 
 R version 4.4.2 (2024-10-31 ucrt) -- "Pile of Leaves"
 ```
 
-#### Packages pane
+#### Packages
 
-In a box on the right side should be a "Packages" tab that you can click on to open the Packages pane. 
-This pane lists packages that are installed (checked box) or that are available to be installed (unchecked box) in your R environment.
+The View Explorer pane has a "Packages" tab that you can click on to open the Packages view.
+This view lists packages that are installed (checked box) or that are available to be installed (unchecked box) in your R environment.
 
 Scroll down to the "System Library" section and look for the "base" package, and note the the number in its "Version" column.
 This corresponds to the version of R you are using in your environment.
@@ -862,7 +888,7 @@ This command can be used wherever you are using R, which makes it useful in scen
 Identify the R packages that your project uses, so that later you can reproduce the environment on CHTC.
 
 To start, make a list of the packages that you load in your R scripts, which is generally done using `library('<package_name>')` commands. 
-Then, look in the "Packages" pane to identify the corresponding versions of the packages. 
+Then, look in the "Packages" tab to identify the corresponding versions of the packages. 
 Usually the package names alone is enough, but sometimes the versions of the packages can matter as well ([About versions](#about-versions)). 
 
 > If you'd rather not do this manually, you can install and use a package called `renv` to not only automatically detect the packages you are using,
