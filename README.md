@@ -218,13 +218,14 @@ where `yourNetID` should be replaced with your actual NetID, and `hostname` shou
 For example, if your NetID is `bbadger` and your account is on hostname `ap2002.chtc.wisc.edu` (where most new user accounts are located), 
 the command would be `ssh bbadger@ap2002.chtc.wisc.edu`.
 
-> [!NOTE]
+> [!IMPORTANT]
 > You will need to be on the university internet for the command to work!
 > That means you either need to be physically on campus, or else connected to the GlobalProtect VPN (WiscVPN).
 
 The first time you connect to a server via SSH, you will prompted to confirm that you trust the server.
 Most of the time, it is okay to enter "yes".
 
+> [!NOTE]
 > If you are concerned about the security of your connection to CHTC, please contact a facilitator for more information.
 
 When prompted for your password, enter the same password you use to login with your NetID to other university services, such as MyUW (my.wisc.edu).
@@ -891,10 +892,9 @@ To start, make a list of the packages that you load in your R scripts, which is 
 Then, look in the "Packages" tab to identify the corresponding versions of the packages. 
 Usually the package names alone is enough, but sometimes the versions of the packages can matter as well ([About versions](#about-versions)). 
 
-> If you'd rather not do this manually, you can install and use a package called `renv` to not only automatically detect the packages you are using,
-> but to also create files that can be used to replicate the environment automatically when building a container.
+> If you'd rather not do this manually, you can install and use the package `renv` to automatically detect the packages you are using.
+> It can also create files to replicate the environment automatically when building a container.
 > For more information, see the `renv` recipe in the Recipes repository: [https://github.com/CHTC/recipes/tree/main/software/R/renv](https://github.com/CHTC/recipes/tree/main/software/R/renv).
-
 
 ### About paths
 
